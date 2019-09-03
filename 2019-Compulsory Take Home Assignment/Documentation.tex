@@ -1,0 +1,184 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{changepage} 
+\usepackage{color}
+\begin{document}
+
+
+\title{Take Home Assignment 2019}
+
+\author{18000768}
+
+\maketitle
+
+\section*{Problem}
+    A giant library has just been inaugurated this week. It can be modeled as a sequence of N consecutive shelves with each shelf having some number of books. No, think of the following two queries which can be performed on these shelves.
+    \begin{itemize}
+        \item Change the number of books in one of the shelves
+        \item Obtain the number of books on the shelf having the kth rank within the range of shelves
+    \end{itemize}
+    A shelf is said to have the kth rank if its position is k when the shelves are sorted based on the number of the books they contain, in ascending order. Can you write a program to simulate the above queries?
+   \\ \underline{\textbf{Input Format} }
+    \\The first line contains a single integer T, denoting the number of test cases. The first line of each test case contains an integer N denoting the number of shelves in the library.\\
+The next line contains N space separated integers where the ith integer represents the number of books on the ith shelf where 1\textless=i\textless=N.\\
+The next line contains an integer Q denoting the number of queries to be performed. Q lines follow with each line representing a query\\
+Queries can be of two types:
+\begin{itemize}
+    \item 1 x k - Update the number of books in the xth shelf to k (1 \textless= x \textless= N).
+    \item 0 x y k - Find the number of books on the shelf between the shelves x and y (both inclusive) with the kth rank (1 \textless= x \textless= y \textless= N, 1 \textless= k \textless= y-x+1).
+\end{itemize}
+
+\underline{ \textbf{Output Format} } 
+\\For every test case, output the results of the queries in a new line.
+
+
+    % \begin{adjustwidth}{1cm}{}
+        \newpage
+\section*{Algorithm}
+
+\begin{enumerate}[Step 1:]
+\item Get testcases as T
+\item Set I = 0
+\item Repeat 4 to 15 steps while I \textless T
+% \begin{adjustwidth}{1cm}{}
+\item  \hspace*{10mm} Get no of Shelves as S
+\item  \hspace*{10mm} Set J = 0
+\item \hspace*{10mm} Repeat 7 to 8 steps while J \textless S
+\item \hspace*{15mm}    Get no of Books as B
+\item \hspace*{15mm}    {\color{blue}Insert} B to linked list\\
+\\ \hspace*{11mm}       [End of Loop]
+\item \hspace*{10mm}Get no of queries as Q
+\item \hspace*{10mm} Set J = 0
+\item \hspace*{10mm}Repeat 12 to 14 steps while J \textless Q
+\item \hspace*{15mm} Get query type as Qtype
+\item \hspace*{15mm} if\{Qtype = 1\}\\
+\hspace*{21mm}           Get x,k\\
+\hspace*{21mm}          {\color{blue}Update}  xth node with k in linked list\\
+\hspace*{21mm}      [End if]
+\item \hspace*{15mm} if\{Qtype = 0\}\\
+\hspace*{21mm}         Get x,y,k\\
+\hspace*{21mm}          array = {\color{blue}Insert} data in xth to yth nodes in the linked list\\
+\hspace*{21mm}         {\color{blue}Sort} array\\
+\hspace*{21mm}         Print (k-1)th position in the array\\
+\hspace*{16mm}      [End if]\\
+\hspace*{11mm}      [End of Loop]
+\item \hspace*{10mm} {\color{blue}Delete all Data} Data in linked list\\
+\hspace*{1mm}  [End of Loop]
+
+
+
+\end{enumerate}
+
+\newpage
+
+\subsection*{Method to Insert data to linked list}
+
+
+\begin{enumerate}[Step 1:]
+\item IF \{AVAIL = NULL\}\\
+\hspace*{6mm}   Print OVERFLOW  \\    
+\hspace*{6mm}   Go to Step 13
+\\ \hspace*{1mm} [End IF]
+\item set AVAIL =  AVAIL -\textgreater  next
+\item newnode -\textgreater  next = NULL
+\item  newnode -\textgreater  data = VAL
+\item IF(start == NULL)\\
+\item \hspace*{6mm}    start = newnode\\
+\\ \hspace*{1mm} ELSE
+\item  \hspace*{5mm} ptr = start
+\item  \hspace*{5mm}Repeat step 9 while (ptr -\textgreater  next != NULL)
+\item  \hspace*{15mm} ptr = ptr -\textgreater  next\\
+ \\ \hspace*{5mm} [End of Loop]
+\item \hspace*{5mm} ptr -\textgreater  next = newnode\\
+\\ \hspace*{1mm} [End IF]
+\item EXIT
+
+\end{enumerate}
+
+\newpage
+
+\subsection*{Method to Update xth node with k in linked list}
+
+\begin{enumerate}[Step 1:]
+
+\item Get x,k
+
+\item IF(start != NULL)
+\item \hspace*{5mm} ptr = start 
+\item  \hspace*{5mm} set I = 1
+\item  \hspace*{5mm}Repeat 6,7 steps  while (I \textless x  AND  ptr -\textgreater  next != NULL)
+\item  \hspace*{15mm} ptr = ptr -\textgreater  next
+\item  \hspace*{15mm} I = I + 1\\
+\\ \hspace*{5mm} [End of Loop]
+\item \hspace*{5mm} ptr -\textgreater  data = k\\
+\\  \hspace*{1mm} [End IF]
+\item EXIT
+
+\end{enumerate}
+
+
+
+
+
+\subsection*{Insert data in the linked list to an array and Sort them}
+
+\begin{enumerate}[Step 1:]
+
+    \item Get x,y,k
+
+    \item IF(start != NULL)
+    \item \hspace*{5mm} ptr = start 
+    \item  \hspace*{5mm} set I = 1
+    \item  \hspace*{5mm}Repeat 6,7 steps  while (I \textless x  AND  ptr -\textgreater  next != NULL)
+    \item  \hspace*{15mm} ptr = ptr -\textgreater  next
+    \item  \hspace*{15mm} I = I + 1\\
+    \\  \hspace*{5mm} [End of Loop]
+    \item  \hspace*{5mm} set I = 0
+    \item  \hspace*{5mm} int array[100]
+    \item  \hspace*{5mm}Repeat 11 to 13 steps  while ( I \textless (y-x+1) )
+    \item  \hspace*{15mm} array[I] = ptr -\textgreater  data
+    \item  \hspace*{15mm} ptr = ptr -\textgreater  next
+    \item  \hspace*{15mm} I = I + 1\\
+    \\  \hspace*{5mm} [End of Loop]
+    \item \hspace*{5mm} set I = 0,J = 0,Size = y-x+1
+    \item \hspace*{5mm} Repeat 16 to 19 steps  while ( I \textless Size )
+    \item \hspace*{15mm} Repeat 17 to 18 steps  while ( J \textless (Size - I) )
+    \item \hspace*{25mm} IF (arr[I] \textgreater arr[J+i])\\
+     \hspace*{36mm}         temp = arr[I]\\
+     \hspace*{36mm}          arr[I] = arr[J+I]\\
+     \hspace*{36mm}          arr[J+I] = temp\\
+    \\ \hspace*{25mm} [End IF]
+    \item \hspace*{25mm} J = J +1\\
+    \\ \hspace*{15mm} [End of Loop]
+    \item \hspace*{15mm} I = I +1\\
+    \\ \hspace*{5mm} [End of Loop]\\
+    \\\hspace*{0mm} [End IF]
+    \item EXIT
+
+\end{enumerate}
+
+\newpage
+
+
+\subsection*{Delete all data in the linked list}
+
+\begin{enumerate}[Step 1:]
+
+\item IF(start != NULL)
+
+\item \hspace*{5mm} IF(start -\textgreater  next  != NULL)
+\item  \hspace*{15mm} ptr = start -\textgreater  next\\
+\\ \hspace*{6mm}   [End IF]
+\item  \hspace*{5mm} start = NULL
+\item  \hspace*{5mm}Repeat 6 to 8 steps  while ( ptr -\textgreater  next != NULL )
+\item \hspace*{15mm} preptr = ptr
+\item  \hspace*{15mm} ptr = ptr -\textgreater  next
+\item  \hspace*{15mm} FREE(ptr)\\
+\\ \hspace*{5mm} [End of Loop]\\
+\\ \hspace*{1mm} [End IF]
+
+\end{enumerate}
+
+
+\end{document}
