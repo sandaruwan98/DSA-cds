@@ -1,37 +1,69 @@
-#include <stdio.h> //insert a element into the middle of array
+#include <stdio.h>
 #include <stdlib.h>
-#define MAX 20
-int con;
-void main(void){
-		//con value means condition value to terminate the program
-	printf("\nInput the con value : ");
-	scanf("%d",&con);
-	do{
-	int i,pos,val,array[MAX]={1,4,9,11,34,20};
-	int size=6;
 
+struct node {
+	int data;
+	struct node* left;
+	struct node* right;
+};
+
+struct node *root;
+struct node *head,*tail = NULL;
+
+
+struct node *newNode(int val){
+	struct node *newnode;
+	newnode = (struct node*) malloc(sizeof(struct node));
+	newnode->data = val;
+	newnode->left = NULL;
+	newnode->right = NULL;
 	
-	printf("before inserting : ");
-	
-	for(i=0;i<size;i++){
-		printf(" %d ",array[i]);
-	}
-	
-	printf("\nEnter the position : ");
-	scanf("%d",&pos);
-	printf("enter the value : ");
-	scanf("%d",&val);
-	for(i=10;i>=pos;i--){
-		array[i+1]=array[i];
-	}
-	array[pos]=val;
-	size++;
-	printf("after inserting : ");
-	for(i=0;i<size;i++){
-		printf(" %d ",array[i]);
-		}
-		printf("\n\n");
-		con=con-1;
-	}while(con!=-1);
+	return newnode;
 }
 
+struct node *CreateNode(struct node *root,int val){
+	if(root == NULL) 
+		root = newNode(val);
+	else if(val < root->data)
+		root->left = CreateNode(root->left,val);
+	else if(val > root->data)
+		root->right = CreateNode(root->right,val);
+	
+	return root;
+}
+
+
+void convertbtToDLL(struct node *node) {
+ 
+ if(node == NULL)
+ return;
+
+ 
+ convertbtToDLL(node->left);
+
+
+ if(head == NULL) {
+ 
+ head = tail = node;
+ }
+ 
+ else {
+ 
+ tail->right = node;
+ node->left = tail;
+ tail = node;
+ }
+
+
+ convertbtToDLL(node->right);
+} 
+
+int main(){
+	
+	root = CreateNode(root,5);
+	root = CreateNode(root,7);
+	root = CreateNode(root,3);
+	root = CreateNode(root,8);
+	convertbtToDLL(root);
+	return 0;
+}
